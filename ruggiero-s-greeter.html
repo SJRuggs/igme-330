@@ -6,35 +6,33 @@
     <style>
       *{font-size:1.5em;}
     </style>
-    <script>
-
-
-    // 1 - get a reference to the button
-      const button = document.querySelector("#btn-hello");
-      console.log(button);
-
-    // 2 - add a click event to button that calls a `sayHello` function
-      button.onclick = sayHello;
-
-    // 3 - create a `sayHello()` function
-      function sayHello(){
-        console.log("Hello");
-      }
-
-    // 3A - get name of person from the <input>
-
-
-    // 3B - get a reference to the #output <p>
-
-
-    // 3C - update HTML of #output <p>
-
-    
-    </script>
   </head>
 <body>
   <button id="btn-hello">Click Me!</button>
   <input id="input-firstname" placeholder="Type in your name">
   <p id="output">???</p>
+  <script>
+
+  // 1 - get a reference to the button
+    const button = document.querySelector("#btn-hello");
+
+  // 2 - add a click event to button that calls a `sayHello` function
+    button.onclick = sayHello;
+
+  // 3 - create a `sayHello()` function
+    function sayHello(){
+
+      // 3A - get name of person from the <input>
+      const name = document.querySelector("#input-firstname").value;
+      console.log(name);
+
+      // 3B - get a reference to the #output <p>
+      const output = document.querySelector("#output");
+      
+      // 3C - update HTML of #output <p>
+      output.textContent = "Hello " + name + "!";
+    }
+
+  </script>
 </body>
 </html>
