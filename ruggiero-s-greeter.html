@@ -14,10 +14,12 @@
       console.log(button);
 
     // 2 - add a click event to button that calls a `sayHello` function
-
+      button.onclick = sayHello;
 
     // 3 - create a `sayHello()` function
-
+      function sayHello(){
+        console.log("Hello");
+      }
 
     // 3A - get name of person from the <input>
 
