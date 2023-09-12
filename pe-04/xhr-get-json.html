@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>XHR - Load Text</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h2>JSON - Load JSON File</h2>
+    <p>The <code>pet-names.json</code> file contains popular dog and cat pet names, separated by commas.</p>
+    <hr>
+    <button id="my-button">Load Data</button>
+    <p id="output">Click button to load</p>
+
+
+    <script>
+        document.querySelector("#my-button").onclick = loadTextXHR;
+
+        function loadTextXHR()
+        {
+            const url = "data/pet-names.json";
+            const xhr = new XMLHttpRequest();
+            xhr.onload = (e) =>
+            {
+                console.log(`In onload - HTTP Status Code = ${e.target.status}`);
+                const text = e.target.response;
+                let json;
+                try { json = JSON.parse(text); }
+                catch (e) { console.log("JSON.parse failed"); return; }
+
+                let html = "";
+                Object.keys(json).forEach(key => html += `<h3>${json[key].title}</h3><ol>${json[key].namelist.map((x) => ` <li>${x}</li>`).join("")}</ol>`);
+                document.querySelector("#output").innerHTML = html;
+                
+            }
+            xhr.onerror = (e) => console.log(`In onerror - HTTP Status Code = ${e.target.status}`);
+            xhr.open("GET", url);
+            xhr.send();
+        }
+    </script>
+</body>
+
+</html>
