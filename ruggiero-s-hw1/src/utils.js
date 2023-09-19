@@ -1,1 +1,1 @@
-export const randomElement = (elements) => elements[Math.floor(Math.random() * elements.length)];
+export const randomElement = e => e[Math.floor(Math.random() * e.length)];
