@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>First Canvas</title>
+	<style>
+		canvas {
+			border: 1px solid gray;
+		}
+	</style>
+	<script>
+		// #0 - in this class we will always use ECMAScript 5's "strict" mode
+		// See what 'use strict' does here:
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode
+		"use strict";
+
+		// #1 call the `init` function after the pages loads
+		const init = () =>
+		{
+			let canvas = document.querySelector("canvas");
+			let ctx = canvas.getContext("2d");
+			ctx.fillStyle = "rgb(255,0,0)";
+			ctx.fillRect(20, 20, 600, 440);
+
+			// IV.Demo
+			// ctx.fillStyle = "yellow"; 
+			// ctx.fillRect(120,120,400,300);
+			// ctx.strokeStyle = "green";
+			// ctx.lineWidth = 10;
+			// ctx.strokeRect(120,120,400,300);
+
+			// V.Check it Off
+			// ctx.fillRect(20,20,200,100);
+			// ctx.strokeRect(20,20,200,100);
+			// ctx.fillRect(420,20,200,100);
+			// ctx.strokeRect(420,20,200,100);
+
+			// II.Rect()
+			ctx.fillStyle = "yellow";
+			ctx.strokeStyle = "magenta";
+			ctx.beginPath();
+			ctx.rect(120, 120, 400, 300);
+			ctx.closePath();
+			ctx.fill();
+			ctx.lineWidth = 10;
+			ctx.stroke();
+
+			// II.Lines
+			ctx.beginPath();
+			ctx.moveTo(20, 20);
+			ctx.lineTo(620, 460);
+			ctx.closePath();
+			ctx.lineWidth = 5;
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.moveTo(620, 20);
+			ctx.lineTo(20, 460);
+			ctx.closePath();
+			ctx.stroke();
+
+			// II.Circle
+			ctx.fillStyle = "green";
+			ctx.strokeStyle = "purple";
+			ctx.beginPath();
+			ctx.arc(320, 240, 50, 0, 2 * Math.PI, false);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+
+			// II.Semi-Circle
+			ctx.fillStyle = "gray";
+			ctx.strokeStyle = "yellow";
+			ctx.beginPath();
+			ctx.arc(320, 240, 20, 0, Math.PI, false);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+
+			// III.Check it Off
+			ctx.beginPath();
+			ctx.arc(300, 220, 10, 0, 2 * Math.PI, false);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.arc(340, 220, 10, 0, 2 * Math.PI, false);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+
+			ctx.strokeStyle = "black";
+			ctx.beginPath();
+			ctx.moveTo(20, 400);
+			ctx.lineTo(620, 400);
+			ctx.closePath();
+			ctx.lineWidth = 10;
+			ctx.stroke();
+
+		}
+
+		window.onload = init;
+	</script>
+</head>
+
+<body>
+	<canvas width="640" height="480">
+		Get a real browser!
+	</canvas>
+</body>
+
+</html>
