@@ -16,7 +16,6 @@ export class Arc{
     update() {
         this.x += 1;
         this.y += 1;
-        // this.x, this.y += 1;
     }
     
     draw(ctx) { canvasUtils.drawArc(ctx, this); }
