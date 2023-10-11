@@ -53,10 +53,10 @@ import * as canvasUtils from "./canvas-utils.js";
 
     // called once each frame
     const update = () => {
-        paused ? null : requestAnimationFrame(update);
-        createRectangles ? canvasUtils.drawRandomRect(ctx) : null;
-        createCircles ? canvasUtils.drawRandomArc(ctx) : null;
-        createLines ? canvasUtils.drawRandomLine(ctx) : null;
+        if (!paused) requestAnimationFrame(update);
+        if (createRectangles) canvasUtils.drawRandomRect(ctx);
+        if (createCircles) canvasUtils.drawRandomArc(ctx);
+        if (createLines) canvasUtils.drawRandomLine(ctx);
     }
 
     setup();
