@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Phyllotaxis</title>
+    <link rel="stylesheet" href="styles/default-styles.css">
+    <script type="module" src="src/main.js"></script>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="controls">
+        <label>Divergence Angle</label>
+        <select id="ctrl-divergence">
+            <option value="137.1">137.1</option>
+            <option value="137.3">137.3</option>
+            <option value="137.5" selected>137.5</option>
+            <option value="137.7">137.7</option>
+            <option value="137.7">137.9</option>
+        </select>
+        <button id="btn-restart">Restart App</button>
+    </div>
+    <h1>About this app</h1>
+    <ul>
+        <li>The pulldown menu above allows the user to change the divergence angle</li>
+        <li>The restart app button will restoer the app to the initial status, using the new divergence angle</li>
+        <li>Changes made to starter code:</li>
+        <ul>
+            <li>Added a reset feature that adds a new, more translucent layer and modifies some variables</li>
+            <li>Increased frame rate to 240 fps</li>
+            <li>Changed canvas size to 400x400</li>
+            <li>Edited the initial values of multiple variables</li>
+            <li>Varies almost all variables over the course of a generation</li>
+        </ul>
+    </ul>
+</body>
+
+</html>
