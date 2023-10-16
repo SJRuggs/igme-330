@@ -32,7 +32,7 @@ const init = e => {
         drawSquare1(ctx,250,0,100,100,"orange");
         drawSquare1(ctx,400,0,100,100,"orange");
     
-        // draw a triangle
+        // draw triangle
         canvas.triangle(ctx, {x1: 500, y1: 100, x2: 550, y2: 200, x3: 450, y3: 200, lineWidth: 5, fillStyle: "red", strokeStyle: "red"})
         
         ctx.restore(); // close A
@@ -41,8 +41,14 @@ const init = e => {
         ctx.save();
         ctx.translate(500,100);
         ctx.rotate(rotation);
-        ctx.scale(1.2,1.2);
-        canvas.triangle(ctx, {x1: 0, y1: -50, x2: 50, y2: 50, x3: -50, y3: 50, lineWidth: 5, fillStyle: "red", strokeStyle: "red"});
+        canvas.triangle(ctx, { x1: 0, y1: -50, x2: 50, y2: 50, x3: -50, y3: 50, lineWidth: 5, strokeStyle: "red" });
+        ctx.restore();
+        ctx.save();
+        ctx.translate(200,300);
+        ctx.rotate(rotation);
+        canvas.triangle(ctx, { x1: 0, y1: -50, x2: 50, y2: 50, x3: -50, y3: 50, lineWidth: 15, strokeStyle: "green" });
+        ctx.translate(0, 100);        
+        canvas.arc(ctx, { x: 0, y: 0, r: 50, fillStyle: "purple", strokeStyle: "red" });
         ctx.restore();
     }
 
