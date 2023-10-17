@@ -78,13 +78,15 @@
         ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
 
         // 12 - draw a bar for each frequency bin
+        data = data.slice(0,22);
+
         ctx.save();
         ctx.translate(320,MIDDLE_Y-120); // move to middle of canvas
         for (let b of data) {
             ctx.fillStyle = `hsl(${b},100%,50%)`;
             let percent = b/255;
             if (percent < 0.02) percent = 0.02; // clip at the bottom
-            ctx.rotate(4*Math.PI/NUM_SAMPLES); // rotate the canvas
+            ctx.rotate(2*Math.PI/data.length); // rotate the canvas
             ctx.save();
             ctx.scale(1,-1); // scale the canvas
             ctx.fillRect(0,0,BAR_WIDTH,MAX_BAR_HEIGHT*percent);
