@@ -39,7 +39,7 @@ export const init = e => {
 
 const setupUI = canvasElement => {
     // A - hookup fullscreen button
-    const fsButton = document.querySelector("#fsButton");
+    const fsButton = document.querySelector("#fs-button");
 	
     // add .onclick event to button
     fsButton.onclick = e => {
@@ -48,7 +48,7 @@ const setupUI = canvasElement => {
     };
     
     // B - hookup play button
-    const playButton = document.querySelector("#playButton");
+    const playButton = document.querySelector("#play-button");
 
     // add .onclick event to button
     playButton.onclick = e => {
@@ -71,8 +71,8 @@ const setupUI = canvasElement => {
     }
 
     // C - hookup volume slider & label
-    let volumeSlider = document.querySelector("#volumeSlider");
-    let volumeLabel = document.querySelector("#volumeLabel");
+    let volumeSlider = document.querySelector("#volume-slider");
+    let volumeLabel = document.querySelector("#volume-label");
 
     // add .oninput event to slider
     volumeSlider.oninput = e => {
@@ -87,7 +87,7 @@ const setupUI = canvasElement => {
     volumeSlider.dispatchEvent(new Event("input"));
 
     // D - hookup track <select>
-    let trackSelect = document.querySelector("#trackSelect");
+    let trackSelect = document.querySelector("#track-select");
     // add .onchange event to <select>
     trackSelect.onchange = e => {
         audio.loadSoundFile(e.target.value);
@@ -96,27 +96,27 @@ const setupUI = canvasElement => {
     };
 
     // E - hookup checkboxes
-    let gradientCB = document.querySelector("#gradientCB");
+    let gradientCB = document.querySelector("#cb-gradient");
     gradientCB.checked = drawParams.showGradient;
     gradientCB.onchange = e => drawParams.showGradient = e.target.checked;
 
-    let barsCB = document.querySelector("#barsCB");
+    let barsCB = document.querySelector("#cb-bars");
     barsCB.checked = drawParams.showBars;
     barsCB.onchange = e => drawParams.showBars = e.target.checked;
 
-    let circlesCB = document.querySelector("#circlesCB");
+    let circlesCB = document.querySelector("#cb-circles");
     circlesCB.checked = drawParams.showCircles;
     circlesCB.onchange = e => drawParams.showCircles = e.target.checked;
 
-    let noiseCB = document.querySelector("#noiseCB");
+    let noiseCB = document.querySelector("#cb-noise");
     noiseCB.checked = drawParams.showNoise;
     noiseCB.onchange = e => drawParams.showNoise = e.target.checked;
 
-    let invertCB = document.querySelector("#invertCB");
+    let invertCB = document.querySelector("#cb-invert");
     invertCB.checked = drawParams.showInvert;
     invertCB.onchange = e => drawParams.showInvert = e.target.checked;
 
-    let embossCB = document.querySelector("#embossCB");
+    let embossCB = document.querySelector("#cb-emboss");
     embossCB.checked = drawParams.showEmboss;
     embossCB.onchange = e => drawParams.showEmboss = e.target.checked;
 }
