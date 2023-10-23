@@ -8,18 +8,24 @@
 // If you want to re-write these as ES6 arrow functions, to be consistent with the other files, go ahead!
 
 import * as audio from './audio.js';
-import * as canvas from './canvas.js';
 import * as visualizer from './visualizer.js';
 
 const drawParams = {
-    showGradient: true,
-    showBars: true,
-    showCircles: true,
-    showNoise: true,
-    showInvert: false,
-    showEmboss: false,
-    volume: 50
+    bars:             true,
+    circles:          true,
+    distortion:       false,
+    distortionAmount: 20,
+    emboss:           false,
+    gradient:         true,
+    highshelf:        false,
+    invert:           false,
+    lowshelf:         false,
+    noise:            false,
+    visualize:        true,
+    volume:           50
 }
+
+let table;
 
 // 1 - here we are faking an enumeration
 const DEFAULTS = Object.freeze({
@@ -28,9 +34,7 @@ const DEFAULTS = Object.freeze({
 
 export const init = e => {
     audio.setupWebaudio(DEFAULTS.sound1);
-	console.log("init called");
-	console.log(`Testing canvas.getRandomColor() import: ${canvas.getRandomColor()}`);
-    let canvasElement = document.querySelector("canvas"); // hookup <canvas> element
+    let canvasElement = document.querySelector("canvas");
     
     setupUI(canvasElement);
     visualizer.setupCanvas(canvasElement,audio.analyserNode);
@@ -38,90 +42,64 @@ export const init = e => {
 }
 
 const setupUI = canvasElement => {
-    // A - hookup fullscreen button
+    // fullscreen button
     const buttonFs = document.querySelector("#btn-fs");
-	
-    // add .onclick event to button
     buttonFs.onclick = e => {
         console.log("goFullscreen() called");
         canvas.goFullscreen(canvasElement);
     };
     
-    // B - hookup play button
+    // play button
     const playButton = document.querySelector("#btn-play");
-
-    // add .onclick event to button
     playButton.onclick = e => {
-        console.log(`audioCtx.state before = ${audio.audioCtx.state}`);
-
-        // check if context is in suspended state (autoplay policy)
         if (audio.audioCtx.state == "suspended") audio.audioCtx.resume();
-
-        console.log(`audioCtx.state after = ${audio.audioCtx.state}`);
-
         if (e.target.dataset.playing == "no") {
-            // if track is currently paused, play it
             audio.playCurrentSound();
-            e.target.dataset.playing = "yes"; // our CSS will set the text to "Pause"
-            // if track IS playing, pause it
+            e.target.dataset.playing = "yes";
         } else {
             audio.pauseCurrentSound();
-            e.target.dataset.playing = "no"; // our CSS will set the text to "Play"
+            e.target.dataset.playing = "no";
         }
     }
 
-    // C - hookup volume slider & label
+    // volume slider
     let volumeSlider = document.querySelector("#slider-volume");
     let volumeLabel = document.querySelector("#label-volume");
-
-    // add .oninput event to slider
     volumeSlider.oninput = e => {
-        // set the gain
         audio.setVolume(e.target.value);
         drawParams.volume = e.target.value / 2 * 100;
-        // update value of label to match value of slider
         volumeLabel.innerHTML = `${Math.round((e.target.value/2 * 100))}%`;
     };
-
-    // set value of label to match initial value of slider
     volumeSlider.dispatchEvent(new Event("input"));
 
-    // D - hookup track <select>
+    // track select
     let trackSelect = document.querySelector("#select-track");
-    // add .onchange event to <select>
     trackSelect.onchange = e => {
         audio.loadSoundFile(e.target.value);
-        // pause the current track if it is playing
         if (playButton.dataset.playing = "yes") playButton.dispatchEvent(new MouseEvent("click"));
     };
 
-    // E - hookup checkboxes
-    let gradientCB = document.querySelector("#cb-gradient");
-    gradientCB.checked = drawParams.showGradient;
-    gradientCB.onchange = e => drawParams.showGradient = e.target.checked;
+    // checkboxes
+    Object.getOwnPropertyNames(drawParams).forEach(param => {
+        let cb = document.querySelector(`#cb-${param}`);
+        if (cb) {
+            cb.checked = drawParams[param];
+            cb.onchange = e => {
+                drawParams[param] = e.target.checked;
+                if      (param == "highshelf")  audio.toggleHighShelf(e.target.checked);
+                else if (param == "lowshelf")   audio.toggleLowShelf(e.target.checked);
+                else if (param == "distortion") audio.toggleDistortion(e.target.checked, drawParams.distortionAmount);
+            }
+        }
+    });
 
-    let barsCB = document.querySelector("#cb-bars");
-    barsCB.checked = drawParams.showBars;
-    barsCB.onchange = e => drawParams.showBars = e.target.checked;
-
-    let circlesCB = document.querySelector("#cb-circles");
-    circlesCB.checked = drawParams.showCircles;
-    circlesCB.onchange = e => drawParams.showCircles = e.target.checked;
-
-    let noiseCB = document.querySelector("#cb-noise");
-    noiseCB.checked = drawParams.showNoise;
-    noiseCB.onchange = e => drawParams.showNoise = e.target.checked;
-
-    let invertCB = document.querySelector("#cb-invert");
-    invertCB.checked = drawParams.showInvert;
-    invertCB.onchange = e => drawParams.showInvert = e.target.checked;
-
-    let embossCB = document.querySelector("#cb-emboss");
-    embossCB.checked = drawParams.showEmboss;
-    embossCB.onchange = e => drawParams.showEmboss = e.target.checked;
+    // start shelves and distortion
+    audio.toggleHighShelf(drawParams.highshelf);
+    audio.toggleLowShelf(drawParams.lowshelf);
+    audio.toggleDistortion(drawParams.distortion, drawParams.distortionAmount);
 }
 
 const loop = e => {
-    requestAnimationFrame(loop);
+    setTimeout(loop, 1000 / 60);
     visualizer.draw(drawParams);
 }
