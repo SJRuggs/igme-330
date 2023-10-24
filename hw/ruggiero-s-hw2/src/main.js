@@ -7,7 +7,7 @@
 // In this instance, we feel the code is more readable if written this way
 // If you want to re-write these as ES6 arrow functions, to be consistent with the other files, go ahead!
 
-import * as audio from './audio.js';
+import * as audio from      './audio.js';
 import * as visualizer from './visualizer.js';
 
 const drawParams = {
@@ -25,15 +25,29 @@ const drawParams = {
     volume:           50
 }
 
-let table;
-
-// 1 - here we are faking an enumeration
-const DEFAULTS = Object.freeze({
-	sound1  :  "media/MYSTERY AUDIO.mp3"
-});
-
 export const init = e => {
-    audio.setupWebaudio(DEFAULTS.sound1);
+
+    // json data
+    const xhr = new XMLHttpRequest();
+    xhr.onload = e => onLoad(JSON.parse(e.target.response));
+    xhr.onerror = e => console.log(e.target.status);
+    xhr.open("GET", "./data/av-data.json");
+    xhr.send();
+}
+
+const onLoad = (json) => {
+    document.querySelector("title").innerHTML = json.title;
+    document.querySelector("#header").innerHTML = json.title;
+    document.querySelector("#description").innerHTML = json.description;
+    let trackSelect = document.querySelector("#select-track");
+    for (let i = 0; i < json.tracks.length; i++) {
+        let element = document.createElement("option");
+        element.value = `media/${json.tracks[i]}.mp3`;
+        element.innerHTML = json.tracks[i];
+        trackSelect.appendChild(element);
+    }
+
+    audio.setupWebaudio(`media/${json.tracks[0]}.mp3`);
     let canvasElement = document.querySelector("canvas");
     
     setupUI(canvasElement);
@@ -46,7 +60,7 @@ const setupUI = canvasElement => {
     const buttonFs = document.querySelector("#btn-fs");
     buttonFs.onclick = e => {
         console.log("goFullscreen() called");
-        canvas.goFullscreen(canvasElement);
+        goFullscreen(canvasElement);
     };
     
     // play button
@@ -103,3 +117,9 @@ const loop = e => {
     setTimeout(loop, 1000 / 60);
     visualizer.draw(drawParams);
 }
+
+const goFullscreen = element => {
+    if      (element.requestFullscreen)         element.requestFullscreen();
+    else if (element.mozRequestFullscreen)      element.mozRequestFullscreen();
+    else if (element.webkitRequestFullscreen)   element.webkitRequestFullscreen();   
+};

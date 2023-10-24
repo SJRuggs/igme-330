@@ -6,10 +6,12 @@
 	  - and then draw something representative on the canvas
 	  - maybe a better name for this file/module would be *visualizer.js* ?
 */
+import * as sprite from './sprite.js';
 
 let ctx, analyserNode, audioData, table;
 let barCount = 100;
 let canvas;
+let sprites = [];
 
 export const setupCanvas = (canvasElement, analyserNodeRef) => {
 	canvas = canvasElement;
@@ -18,6 +20,10 @@ export const setupCanvas = (canvasElement, analyserNodeRef) => {
 	audioData = new Uint8Array(analyserNode.fftSize / 2);	// this is the array where the analyser data will be stored
 	table = document.createElement("table");				// create table
     document.querySelector("#data").appendChild(table);		// append table to DOM
+
+	for (let i = 0; i < barCount; i++) {					// create sprites
+		sprites.push(new sprite.CircleSprite(ctx.canvas.width / barCount * i, 0, 0));
+	}
 }
 
 export const draw = (params={}) => {
@@ -42,10 +48,18 @@ export const draw = (params={}) => {
 		if (params.noise) drawNoise(data, length);
 		if (params.invert) drawInvert(data, length);
 		if (params.emboss) drawEmboss(data, length, width);
-	
+
 		// copy image data back to canvas
 		ctx.putImageData(imageData, 0, 0);
+
+		// sprites
+		for (let i = 0; i < sprites.length; i++) {
+			sprites[i].setRadius((audioData[i] / 50) ** 2);
+			sprites[i].setColor(`hsl(${i / audioData.length * 255}, 100%, ${params.volume / 2 + 25}%)`);
+			sprites[i].update(ctx, audioData[i]);
+		}
 	}
+
 	else {
 		table.style.display = "block";
 		canvas.style.display = "none";
@@ -139,7 +153,6 @@ const drawGradient = e => {
 			{ percent: 0,   color: "purple"    },
 			{ percent: .50, color: "indigo"   },
 		]);
-	ctx.globalAlpha = 0.8;
 	ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
 	ctx.restore();
 }

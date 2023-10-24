@@ -1,0 +1,10 @@
+{
+    "title" : "Audio Visualizer",
+    "tracks" : [
+        "Mystery Audio",
+        "New Adventure Theme",
+        "Peanuts Theme",
+        "The Picard Song"
+    ],
+    "description" : "A simple audio visualizer that uses the Web Audio API to create a frequency spectrum and a waveform."
+}

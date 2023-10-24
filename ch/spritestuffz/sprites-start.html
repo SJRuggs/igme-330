@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sprites Start</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+
+        class CircleSprite {
+            static type = "arc";
+            constructor(x, y, radius, color) {
+                console.log(`${this.constructor.type} created`);
+                Object.assign(this, { x, y, radius, color });
+            }
+
+            update() {
+                this.x += 1;
+                this.y += 1;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        "use strict";
+        const canvasWidth = 640, canvasHeight = 480;
+
+        let ctx;
+        let sprites = [];
+
+        const loop = () => {
+            setTimeout(loop, 1000 / 60);
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+            for (let sprite of sprites) {
+                sprite.update();
+                sprite.draw(ctx);
+            }
+        }
+
+        const init = () => {
+            ctx = canvas.getContext("2d");
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+
+            sprites.push(new CircleSprite(100, 100, 20, "red"));
+            sprites.push(new CircleSprite(100, 200, 30, "green"));
+
+            loop();
+        };
+
+        window.onload = init;
+
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+</body>
+
+</html>

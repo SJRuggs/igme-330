@@ -6,7 +6,6 @@ const DEFAULTS = Object.freeze({
     numSamples  :   256
 });
 
-let audioData = new Uint8Array(DEFAULTS.numSamples / 2);
 let highshelfFilter, lowShelfFilter, distortionFilter;
 
 export const setupWebaudio = path => {
