@@ -1,12 +1,8 @@
-const defaultName = "Mr. X";
-
-const doubleIt = val =>  val * 2;
-
+const defaultName   = "Mr. X";
 const formatGreeting = (greeting, name, forcefully) => {
-  const recipient  = name ? name : defaultName;
-  const str = `${greeting} ${recipient}`;
+  const recipient   = name ? name : defaultName;
+  const str         = `${greeting} ${recipient}`;
   return forcefully ? `${str.toUpperCase()}!` : str;
 };
 
-// export our "public" symbols, everything else in this file is "private" by default
-export { defaultName, doubleIt, formatGreeting };
+export { formatGreeting };
