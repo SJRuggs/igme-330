@@ -1,0 +1,14 @@
+II.
+I added distortion, lowshelf, and highshelf. These function exactly as they did in our week 8 exercise.
+
+III.
+The sprite class name is just 'sprite', and it creates circles whose speed and size adapt to the sound.
+
+IV.
+I put title, tracknames, and a short app description into the json file.
+
+V.
+I made the gradient easier to look at
+I made the bars form a circle
+I created a 'raining' effect with the circle sprites
+I would give that a a 10% / 15%
