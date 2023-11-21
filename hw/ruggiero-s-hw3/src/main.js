@@ -27,8 +27,6 @@ export const init = e => {
 }
 
 const onLoad = (json) => {
-    document.querySelector("title").innerHTML = json.title;
-    document.querySelector("#header").innerHTML = json.title;
     document.querySelector("#description").innerHTML = json.description;
     let trackSelect = document.querySelector("#select-track");
     for (let i = 0; i < json.tracks.length; i++) {
@@ -102,6 +100,13 @@ const setupUI = canvasElement => {
     audio.toggleHighShelf(drawParams.highshelf);
     audio.toggleLowShelf(drawParams.lowshelf);
     audio.toggleDistortion(drawParams.distortion, drawParams.distortionAmount);
+
+    // bulma navbar burger
+    const burgerIcon = document.querySelector('#burger');
+    const navbarMenu = document.querySelector('#nav-links');
+    burgerIcon.addEventListener('click', () => {
+        navbarMenu.classList.toggle('is-active');
+    });
 }
 
 const loop = e => {

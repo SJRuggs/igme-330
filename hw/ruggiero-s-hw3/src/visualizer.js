@@ -32,7 +32,6 @@ export const draw = (params={}) => {
 
 	if (params.visualize) {
 		table.style.display = "none";
-		canvas.style.display = "block";
 
 		// clear canvas
 		ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);

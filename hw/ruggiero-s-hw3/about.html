@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Audio Visualizer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <nav class="navbar has-shadow is-white">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="./index.html">
+                <img src="./assets/logo.png" style="max-height: 70px;" class="py-2 px-2">
+            </a>
+            <a class="navbar-burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu" id="nav-links">
+            <a class="navbar-item is-size-5 mx-3" href="./index.html">Home</a>
+            <a class="navbar-item is-size-5 mx-3 has-text-weight-bold" href="./about.html">About</a>
+        </div>
+    </nav>
+    <script src="./src/about.js" type="module"></script>
+
+    <!-- ABOUT -->
+
+    <div class="container pt-6">
+        <div class=" columns">
+            <div class="column is-4">
+                <h1 class="is-size-1">Audio Visualizer</h1>
+                <p>
+                    The audio visualizer interperets sound data to create visual effects.
+                    It achieves this by drawing individual rectangles with lengths dependent on the data, and creating circle sprites that move and draw according to the same data.
+                    The visualizer also has multiple settings that can be toggled on and off to change the visual effects.
+                </p>
+            </div>
+            <div class="column is-6">
+                <img src="./assets/Screenshot.png" alt="visualizer" class="px-6">
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+
+<!-- Mystery audio by https://www.youtube.com/channel/UCuAXFkgsw1L7xaCfnd5JJOw -->
