@@ -28,7 +28,6 @@
             <a class="navbar-item is-size-5 mx-3 has-text-weight-bold" href="./about.html">About</a>
         </div>
     </nav>
-    <script src="./src/about.js" type="module"></script>
 
     <!-- ABOUT -->
 
@@ -48,6 +47,14 @@
         </div>
     </div>
 
+    <script>
+        // bulma navbar burger
+        const burgerIcon = document.querySelector('#burger');
+        const navbarMenu = document.querySelector('#nav-links');
+        burgerIcon.addEventListener('click', () => {
+            navbarMenu.classList.toggle('is-active');
+        });
+    </script>
 
 </body>
 

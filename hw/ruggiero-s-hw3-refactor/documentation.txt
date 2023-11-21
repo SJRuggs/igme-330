@@ -12,3 +12,9 @@ I made the gradient easier to look at
 I made the bars form a circle
 I created a 'raining' effect with the circle sprites
 I would give that a a 10% / 15%
+
+HOMEWORK THREE
+
+VIII. Documentation
+
+I coded in Vanilla JS, because I didn't have the time or energy to refactor (parts of) it into TS.
