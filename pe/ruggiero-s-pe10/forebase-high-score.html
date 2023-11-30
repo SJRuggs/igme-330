@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>High Score App</title>
+    <style>
+        * {
+            font-family: monospace;
+            font-size: 1.2em;
+        }
+
+        #scoreElement {
+            font-size: 3em;
+            width: 5em;
+            height: 2.5em;
+            color: white;
+            background-color: black;
+            border: 5px solid gray;
+            text-align: center;
+            padding-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <p id="scoreElement">0</p>
+    <p>Name<input type="text" value="MADMAX" id="nameField"></p>
+    <button id="clickMeButton">Click Me!</button>
+    <button id="saveScoreButton">Save High Score</button>
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyBN6LOt33SNPr3XkHcvQQ9o55ZINPbvXx8",
+            authDomain: "high-scores-932cd.firebaseapp.com",
+            projectId: "high-scores-932cd",
+            storageBucket: "high-scores-932cd.appspot.com",
+            messagingSenderId: "502697533225",
+            appId: "1:502697533225:web:a19752b5a12411671ce138",
+            measurementId: "G-PK7K41XM2D"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        // make sure firebase is loaded
+        console.log(app);
+
+        const writeHighScoreData = (userId, game, score) => {
+            const db = getDatabase();
+            set(ref(db, 'scores/' + userId), {
+                userId,
+                game,
+                score
+            });
+        };
+
+        /* #3 - Here's the new code for our clicker "game" */
+        let score = 0;
+
+        clickMeButton.onclick = _ => {
+            score++;
+            scoreElement.innerText = score;
+        };
+
+        saveScoreButton.onclick = _ => {
+            writeHighScoreData(nameField.value, "Clicktastic", score);
+        };
+
+
+    </script>
+
+</body>
+
+</html>
